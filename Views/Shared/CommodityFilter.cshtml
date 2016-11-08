@@ -1,0 +1,17 @@
+﻿@model BasisMap.Models.Commodity
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Code)
+    @Html.DropDownListFor(m => m.Code, // 1. Store selected value in Model.State;
+                                                           // when page is rendered after postback,
+                                                           // take selected value from Model.State.
+
+                                              // 2. Take list of values from Model.States
+                                              Model.CommodityCodes,
+
+                                              // 3. Text for the first 'default' option
+                                              "- Please select a Commodity -",
+
+                                              //4. A class name to assign to <select> tag
+                                              new { @class = "form-control" })
+</div>
