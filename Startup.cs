@@ -65,27 +65,74 @@ namespace BasisMap
 
         //    app.UseMvcWithDefaultRoute();
         //}
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Development' or is not defined
+        //The allowed values are Development,Staging and Production
+        public void ConfigureDevelopment(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddConsole(minLevel: LogLevel.Information);
+
+            // StatusCode pages to gracefully handle status codes 400-599.
+            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
+
+            // Display custom error page in production when error occurs
+            // During development use the ErrorPage middleware to display error information in the browser
+            app.UseDeveloperExceptionPage();
+
+            app.UseDatabaseErrorPage();
+
+            Configure(app);
+        }
+
+        //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Staging'
+        //The allowed values are Development,Staging and Production
+        public void ConfigureStaging(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(minLevel: LogLevel.Warning);
+
+            // StatusCode pages to gracefully handle status codes 400-599.
+            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
+
+            app.UseExceptionHandler("/Home/Error");
+
+            Configure(app);
+        }
+
+        //This method is invoked when ASPNETCORE_ENVIRONMENT is 'Production'
+        //The allowed values are Development,Staging and Production
+        public void ConfigureProduction(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(minLevel: LogLevel.Warning);
+
+            // StatusCode pages to gracefully handle status codes 400-599.
+            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
+
+            app.UseExceptionHandler("/Home/Error");
+
+            Configure(app);
+        }
+        public void Configure(IApplicationBuilder app/*, IHostingEnvironment env, ILoggerFactory loggerFactory*/)
+        {
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
 
             app.UseApplicationInsightsRequestTelemetry();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseBrowserLink();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
 
             app.UseApplicationInsightsExceptionTelemetry();
-
+            // Configure Session.
+            app.UseSession();
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            ServiceProviderConfig.InitializeMusicStoreDatabaseAsync(app.ApplicationServices).Wait();
         }
     }
 }

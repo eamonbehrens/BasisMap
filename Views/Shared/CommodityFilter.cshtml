@@ -1,17 +1,30 @@
-﻿@model BasisMap.Models.Commodity
-<div></div>
+﻿@model IEnumerable<string>
+
+<li class="dropdown">
+    <a asp-area="" asp-controller="Store" asp-action="Index" class="dropdown-toggle" data-toggle="dropdown">Store <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        @foreach (var commodityDescription in Model)
+        {
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Browse" 
+                   asp-route-Genre="@commodityDescription">@commodityDescription</a>
+            </li>
+        }
+        <li class="divider"></li>
+        <li>
+            <a asp-controller="Home" asp-action="Index">More...</a>
+        </li>
+    </ul>
+</li>
+
+
+
+
+
+@*@model BasisMap.Models.Commodity
+
 <div class="form-group">
     @Html.LabelFor(m => m.Code)
-    @Html.DropDownListFor(m => m.Code, // 1. Store selected value in Model.State;
-                                                           // when page is rendered after postback,
-                                                           // take selected value from Model.State.
-
-                                              // 2. Take list of values from Model.States
-                                              Model.CommodityCodes,
-
-                                              // 3. Text for the first 'default' option
-                                              "- Please select a Commodity -",
-
-                                              //4. A class name to assign to <select> tag
-                                              new { @class = "form-control" })
-</div>
+    @Html.DropDownListFor(m => m.Code, Model.CommodityCodes, "- Please select a Commodity -",
+    new { @class = "form-control" })                                    
+</div>*@

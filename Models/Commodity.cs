@@ -18,7 +18,7 @@ namespace BasisMap.Models
         //      public IEnumerable<Commodity> Commodities { get; set; }
         //public IEnumerable<string> CommodityCodes { get; set; }
         //public IEnumerable<SelectListItem> CommodityCodes { get; set; }
-        public SelectList CommodityCodes { get; set; }
+      //  public SelectList CommodityCodes { get; set; }
 
 
         // public IEnumerable<SelectListItem> Commodities { get; set; }

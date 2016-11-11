@@ -2,6 +2,7 @@
 using BasisMap.Interfaces;
 using BasisMap.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BasisMap.Controllers
 {
@@ -17,28 +18,12 @@ namespace BasisMap.Controllers
         // GET: /characters/
         public IActionResult CommoditiesList()
         {
-            // PopulateCharactersIfNoneExist();
-            var commodities = _commodityRepository.ListAll();
+            ViewModels.CommodityViewModel model = new ViewModels.CommodityViewModel();
+            model.CommodityCodes = new SelectList(_commodityRepository.ListAll());
+           // var commodities = _commodityRepository.ListAll();
 
-            return View(commodities);
+            return View(model);
         }
-        //public IActionResult CommoditiesDropDown()
-        //{
-        //    // PopulateCharactersIfNoneExist();
-        //    var commodities = _commodityRepository.GetList();
 
-        //    return View("_Layout", commodities);
-        //}
-
-        //private void PopulateCharactersIfNoneExist()
-        //{
-        //    if (!_characterRepository.ListAll().Any())
-        //    {
-        //        _characterRepository.Add(new Character("Darth Maul"));
-        //        _characterRepository.Add(new Character("Darth Vader"));
-        //        _characterRepository.Add(new Character("Yoda"));
-        //        _characterRepository.Add(new Character("Mace Windu"));
-        //    }
-        //}
     }
 }

@@ -35,7 +35,8 @@ namespace BasisMap.DBContext
         }
 
         public virtual DbSet<Commodity> Commodity { get; set; }
-     //   public IEnumerable<SelectListItem> CommoditiesDrop { get; set; }
+        public virtual DbSet<CommodityViewModel> CommodityViewModel { get; set; }
+        //   public IEnumerable<SelectListItem> CommoditiesDrop { get; set; }
         public List<SelectListItem> CommoditiesDrop { get; set; } = new List<SelectListItem>
         {
             new SelectListItem { Value = "CA", Text = "Mexico" },
@@ -1414,6 +1415,7 @@ namespace BasisMap.DBContext
             //        .HasForeignKey(d => d.DataSource)
             //        .HasConstraintName("FK_ChartOfAccount_DataSource");
             //});
+
 
             modelBuilder.Entity<Commodity>(entity =>
             {

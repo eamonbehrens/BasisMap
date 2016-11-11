@@ -13,28 +13,13 @@ namespace BasisMap.ViewModels
     public class CommodityViewModel
     {
 
-
-        //[Key]
-        //public int ID { get; set; }
-
         public string Code { get; set; }
 
         public string Description { get; set; }
-        public IEnumerable<Commodity> CommoditiesList { get; set; }
-        // public Commodity Commodities { get; set; }
-       public IEnumerable<SelectListItem> CommodityCodes { get; set; }
-        // var list = from c in Commodity select
-        //public List<SelectListItem> Commodities { get; } = new List<SelectListItem>
-        //{
+        public SelectList CommodityCodes { get; set; }
 
+       // public IEnumerable<SelectListItem> CommodityCodes { get; set; }
 
-        //    new SelectListItem { Value = "MX", Text = "Mexico" },
-        //    new SelectListItem { Value = "CA", Text = "Canada" },
-        //    new SelectListItem { Value = "US", Text = "USA"    },
-        //    new SelectListItem { Value = "FR", Text = "France" },
-        //    new SelectListItem { Value = "ES", Text = "Spain"  },
-        //    new SelectListItem { Value = "DE", Text = "Germany"}
-        // };
     
 
 

@@ -1,7 +1,6 @@
 ﻿@*@model BasisMap.ViewModels.CommodityViewModel*@
 @model BasisMap.Models.Commodity
 
-<div></div>
 
 
 
@@ -92,40 +91,17 @@
                 <li class="active">
                   
                     @* State selection dropdown *@
+                    @*<div class="form-group">
+                        @Html.Partial("CommodityFilter")
+                    </div>*@
+                    
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Code)
-                        @Html.DropDownListFor(m => m.Code, // 1. Store selected value in Model.State;
-                                                            // when page is rendered after postback,
-                                                            // take selected value from Model.State.
-
-                                              // 2. Take list of values from Model.States
-                                              Model.CommodityCodes,
-
-                                              // 3. Text for the first 'default' option
-                                              "- Please select a Commodity -",
-
-                                              //4. A class name to assign to <select> tag
-                                              new { @class = "form-control" })
+                        @*@Html.LabelFor(m => m.Code)
+                        @Html.DropDownListFor(m => m.Code, Model.CommodityCodes, "- Please select a Commodity -",
+                             new { @class = "form-control" })*@
+                        @await Component.InvokeAsync("Commodities")
                     </div>
                    
-             @*@Html.DropDownListFor(m => m.Oid, Model.Commodities, "Code", "Description"), "Choose Commodity")*@
-                    @*@Html.DropDownListFor(m => m.Oid, Model.)*@
-                    @*<form asp-controller="Home" asp-action="IndexSelect">
-                        <select asp-for="CommodityCodes" asp-items="Model.Commodities"></select>
-                        <br /><button type="submit">Register</button>
-                    </form>*@
-                    @*@Html.DropDownListFor(m => m.Oid.ToString(),
-                    new SelectList(
-                    Model.Commodities.Select(
-                    c => new
-                    {
-                    Id = c.Oid,
-                    Description = c.Description
-                    }),
-                    "Oid",
-                    "Description"))*@
-                    @*<select class="fa fa-fw fa-dashboard"  asp-for="Commodities" asp-items="Model.Commodities"></select>
-                    @*<a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>*@
                 </li>
                 <li>
                     <a asp-area="" asp-controller="BasisValuesInput" asp-action="BasisValues">Basis Values</a>

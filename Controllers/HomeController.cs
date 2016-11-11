@@ -9,6 +9,7 @@ using BasisMap.Models.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BasisMap.Models;
 using BasisMap.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasisMap.Controllers
 {
@@ -22,18 +23,39 @@ namespace BasisMap.Controllers
         {
             _commodityRepository = commodityRepository;
         }
-        public IActionResult Index()
+       // public IActionResult Index()
+       // {
+       //     // Let's get all states that we need for a DropDownList
+       ////     var codes = _commodityRepository.GetCommodityDropDown();
+
+       //     var model = new Commodity();
+
+       //     // Create a list of SelectListItems so these can be rendered on the page
+       //     model.CommodityCodes = _commodityRepository.GetCommodityDropDown();
+
+       //     return View(model);
+
+       // }
+        public async Task<IActionResult> Index()
         {
-            // Let's get all states that we need for a DropDownList
-       //     var codes = _commodityRepository.GetCommodityDropDown();
+            var commodities = await db.Commodity.ToListAsync();
 
-            var model = new Commodity();
+            return View(commodities);
+        }
+        public async Task<IActionResult> Browse(string commodity)
+        {
+            // Retrieve Genre genre and its Associated associated Albums albums from database
+            var commodityModel = await db.Commodity
+                // .Include(g => g.Albums)
+                .Where(g => g.Description == commodity)
+                .FirstOrDefaultAsync();
 
-            // Create a list of SelectListItems so these can be rendered on the page
-            model.CommodityCodes = _commodityRepository.GetCommodityDropDown();
+            if (commodityModel == null)
+            {
+                return NotFound();
+            }
 
-            return View(model);
-
+            return View(commodityModel);
         }
 
 
